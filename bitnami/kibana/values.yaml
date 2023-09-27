@@ -739,3 +739,7 @@ elasticsearch:
       ## @param elasticsearch.security.tls.passwordsSecret Name of a existing secret containing the Truststore password
       ##
       passwordsSecret: ""
+
+## @param ipMode Set to "v6" to listen on IPV6 or "v4" to listen to IPV4
+##
+ipMode: v4

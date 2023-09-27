@@ -16,7 +16,6 @@ metadata:
 data:
   kibana.yml: |
     pid.file: /opt/bitnami/kibana/tmp/kibana.pid
-    server.host: "::"
     server.port: {{ .Values.containerPorts.http }}
     elasticsearch.hosts: [{{ include "kibana.elasticsearch.url" . }}]
     {{- if .Values.configuration.server.basePath }}
@@ -25,5 +24,10 @@ data:
     server.rewriteBasePath: {{ .Values.configuration.server.rewriteBasePath }}
     {{- if .Values.extraConfiguration }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.extraConfiguration "context" $ ) | nindent 4 }}
+    {{- end }}
+    {{- if eq .Values.ipMode "v6" }}
+    server.host: "::"
+    {{- else }}
+    server.host: "0.0.0.0"
     {{- end }}
 {{- end }}
